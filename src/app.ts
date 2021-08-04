@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import userRoute from './routes/user.route';
 
 export class App {
   private express: express.Application;
@@ -8,9 +9,10 @@ export class App {
 
   constructor() {
     this.express = express();
-    this.listen();
     this.middleware();
     this.database();
+    this.routes();
+    this.listen();
   }
 
   public getApp(): express.Application {
@@ -29,9 +31,12 @@ export class App {
   }
 
   private database(): void {
-    mongoose.connect(`mongodb+srv://corte:280194@cluster0.dl8ut.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {
+    mongoose.connect(`mongodb+srv://corte:mh1EdQcQwjY5CoKn@cluster0.dl8ut.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {
       useUnifiedTopology: true,
       useNewUrlParser:true
     });
+  }
+  private routes(): void {
+    this.express.use('/users', userRoute);
   }
 }
