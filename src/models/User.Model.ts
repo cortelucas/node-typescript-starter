@@ -23,6 +23,10 @@ UserSchema.pre<UserModelInterface>('save', async function encryptPassword() {
   this.password = await bcrypt.hash(this.password, 8);
 });
 
+UserSchema.pre<UserModelInterface>('save', function generateAvatar() {
+  const randomID = Math.floor(Math.random() * (1000000)) + 1;
 
+  this.avatar = `https://api.adorable.io/avatars/285/${randomID}.png`;
+});
 
 export default model<UserModelInterface>('Usuário', UserSchema);
