@@ -9,11 +9,17 @@ export class App {
   constructor() {
     this.express = express();
     this.listen();
+    this.middleware();
     this.database();
   }
 
   public getApp(): express.Application {
     return this.express;
+  }
+
+  private middleware(): void {
+    this.express.use(express.json());
+    this.express.use(cors());
   }
 
   private listen(): void {
