@@ -9,6 +9,7 @@ export class App {
   constructor() {
     this.express = express();
     this.listen();
+    this.database();
   }
 
   public getApp(): express.Application {
@@ -19,5 +20,12 @@ export class App {
     this.express.listen(this.port, () => {
       console.log(`Server listening in http://127.0.0.1:${this.port}`);
 ;    });
+  }
+
+  private database(): void {
+    mongoose.connect(`mongodb+srv://corte:280194@cluster0.dl8ut.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, {
+      useUnifiedTopology: true,
+      useNewUrlParser:true
+    });
   }
 }
